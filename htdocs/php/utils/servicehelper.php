@@ -4,8 +4,8 @@ class serviceHelper{
   private static $messages = array(
       'success'  => array("code" => "111", "message" => "success"),
       'missing'  => array('code' => '000', 'message' => 'Missing params'),
-      'existing' => array('code' => '001', 'message' => 'Param is already exist in database'),
-      
+      'existing' => array('code' => '001', 'message' => 'Param is already exist in the database'),
+      'inexisting' => array('code' => '001', 'message' => 'Param isn\'t exist in the database'),
     );
 
   public static function isValidRequest($request){
@@ -20,16 +20,25 @@ class serviceHelper{
     return self::$messages[$keyword];
   }
 
-  public static function notExistIn($value,$attr,$table){
+  public static function isExistIn($var,$table,$condition){
     global $db;
 
-    $sql = "SELECT {$attr} FROM {$table} WHERE {$attr} = '{$value}';";
+    $length = count($condition);
+
+    $sql = "SELECT {$var} FROM {$table} WHERE ";
+    for ($i=0; $i < $length; $i++) { 
+      $sql .= "{$condition[$i]['key']} = '{$condition[$i]['value']}'";
+      if ($length > $i + 1) {
+        $sql .= " AND ";
+      }
+    }
+    $sql .= ";";
     $result = self::query($sql);
 
     if (count($result) > 0) {
-      return false;
+      return $result;
     }else{
-      return true;
+      return false;
     }
   }
 
