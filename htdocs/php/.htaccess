@@ -1,0 +1,6 @@
+Options +FollowSymlinks
+RewriteEngine on
+#If the rewriting does not work specify RewriteBase
+RewriteBase /easyDesign/php
+
+RewriteRule ^(.)+$  index.php [L]
