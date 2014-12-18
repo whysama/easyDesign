@@ -1,0 +1,23 @@
+{
+  "name" : "homepage",
+  "banner" : {
+    "title" : {
+      "text" : "Homepage",
+      "color" : "#000000",
+      "size"  : "12"
+    },
+    "color" : "#FF8000"
+  },
+  "main" : "HERE IS CONTENT",
+  "toolbar" : {
+    "button-left" : {
+      "button-name" : "MES FAVORIS"
+    },
+    "button-main" : {
+      "button-name" : "AUDIO GUIDE"
+    },
+    "button-right" : {
+      "button-name" : "GUIDE MULTIMEDIA"
+    }
+  } 
+}

@@ -1,0 +1,25 @@
+<div class="container">
+    <div ng-repeat="page in pages | orderBy : orderProp" class="col-xs-6 col-md-3">
+        <a href="#/musee/{{page.name}}" class="thumbnail">
+        <img my-holder="holder.js/200x355/text:{{page.name}}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <a data-toggle="modal" data-target=".bs-musee-model-modal-sm" class="thumbnail">
+        <img my-holder="holder.js/200x355/text:+">
+      </a>
+    </div>
+    <div class="modal fade bs-musee-model-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="museeModelModalLabel">Add a partten</h4>
+                </div>
+                <div class="modal-body">
+                    <button type="button" ng-repeat="page in pages | orderBy : orderProp" class="btn btn-default btn-block">{{page.name}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
