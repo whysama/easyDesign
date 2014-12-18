@@ -1,6 +1,10 @@
 Options +FollowSymlinks
 RewriteEngine on
 #If the rewriting does not work specify RewriteBase
-RewriteBase /easyDesign/php
+#Airweb-ubuntu
+#RewriteBase /easyDesign/php
+#Home Macbook
+RewriteBase /~young/easyDesign/htdocs/php
 
 RewriteRule ^(.)+$  index.php [L]
+
