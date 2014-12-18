@@ -3,9 +3,10 @@
 class serviceHelper{
   private static $messages = array(
       'success'  => array("code" => "111", "message" => "success"),
-      'missing'  => array('code' => '000', 'message' => 'Missing params'),
-      'existing' => array('code' => '001', 'message' => 'Param is already exist in the database'),
-      'inexisting' => array('code' => '002', 'message' => 'Param isn\'t exist in the database'),
+      'failed'  => array("code" => "000", "message" => "failed"),
+      'missing'  => array('code' => '001', 'message' => 'Missing params'),
+      'existing' => array('code' => '002', 'message' => 'Param is already exist in the database'),
+      'inexisting' => array('code' => '003', 'message' => 'Param isn\'t exist in the database'),
     );
 
   public static function isValidRequest($request){

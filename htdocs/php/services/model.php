@@ -203,9 +203,10 @@ class Model extends RestGeneric{
       return serviceHelper::returnMessage("missing");
     }
   }
-
+  //TODO delete all project reference to the model
   function deleteModel($request){
     $id_model = $request['id_model'];
+    $sqlArray = array();
     $sql = "DELETE FROM model WHERE id_model = '{$id_model}';";
     serviceHelper::query($sql);
     return serviceHelper::returnMessage("success");
