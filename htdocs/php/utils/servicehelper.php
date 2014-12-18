@@ -34,7 +34,6 @@ class serviceHelper{
     }
     $sql .= ";";
     $result = self::query($sql);
-
     if (count($result) > 0) {
       return $result;
     }else{

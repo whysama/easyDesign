@@ -16,7 +16,10 @@ class Model extends RestGeneric{
                              }'
         )
       ),
-      'returnExample' => array('type' => RestGeneric::RETURN_EXAMPLE_DYNAMIC)
+      'returnExample' => array(
+        'type' => RestGeneric::RETURN_EXAMPLE_STATIC,
+        'value' => '{"status":"ok","time":1356012312,"exectime":0.181,"response":{}}'
+      )
     ),
     'getModels' => array(
       'type' => array(RestGeneric::METHOD_GET, RestGeneric::METHOD_POST),
@@ -29,7 +32,10 @@ class Model extends RestGeneric{
           'exampleValue' => ''
         )
       ),
-      'returnExample' => array('type' => RestGeneric::RETURN_EXAMPLE_DYNAMIC)
+      'returnExample' => array(
+        'type' => RestGeneric::RETURN_EXAMPLE_STATIC,
+        'value' => '{"status":"ok","time":1356012312,"exectime":0.181,"response":{}}'
+      )
     ),
     'updateModel' => array(
       'type' => array(RestGeneric::METHOD_GET, RestGeneric::METHOD_POST),
@@ -40,13 +46,16 @@ class Model extends RestGeneric{
           'type' => RestGeneric::PARAM_TYPE_STRING,
           'description' => '',
           'exampleValue' => '{ "id_model" : "1",
-                               "model_name":"Musee",
-                               "model_description":"A model designed for our museum application",
-                               "model_image" : ""
+                               "model_name":"Musee Updated",
+                               "model_description":"A model designed for our museum application Updated",
+                               "model_image" : "images/musee.jpg"
                              }'
         )
       ),
-      'returnExample' => array('type' => RestGeneric::RETURN_EXAMPLE_DYNAMIC)
+      'returnExample' => array(
+        'type' => RestGeneric::RETURN_EXAMPLE_STATIC,
+        'value' => '{"status":"ok","time":1356012312,"exectime":0.181,"response":{}}'
+      )
     ),
     'deleteModel' => array(
       'type' => array(RestGeneric::METHOD_GET, RestGeneric::METHOD_POST),
@@ -59,7 +68,10 @@ class Model extends RestGeneric{
           'exampleValue' => '1'
         )
       ),
-      'returnExample' => array('type' => RestGeneric::RETURN_EXAMPLE_DYNAMIC)
+      'returnExample' => array(
+        'type' => RestGeneric::RETURN_EXAMPLE_STATIC,
+        'value' => '{"status":"ok","time":1356012312,"exectime":0.181,"response":{}}'
+      )
     ),
     'createPattern' => array(
       'type' => array(RestGeneric::METHOD_GET, RestGeneric::METHOD_POST),
@@ -70,11 +82,16 @@ class Model extends RestGeneric{
           'type' => RestGeneric::PARAM_TYPE_STRING,
           'description' => '',
           'exampleValue' => '{ "id_model":"1",
-                               "pattern_name":"Homepage"
+                               "pattern_name":"Homepage",
+                               "pattern_description":"Pattern description",
+                               "pattern_detail":""
                              }'
         )
       ),
-      'returnExample' => array('type' => RestGeneric::RETURN_EXAMPLE_DYNAMIC)
+      'returnExample' => array(
+        'type' => RestGeneric::RETURN_EXAMPLE_STATIC,
+        'value' => '{"status":"ok","time":1356012312,"exectime":0.181,"response":{}}'
+      )
     ),
     'getPatterns' => array(
       'type' => array(RestGeneric::METHOD_GET, RestGeneric::METHOD_POST),
@@ -87,7 +104,10 @@ class Model extends RestGeneric{
           'exampleValue' => '1'
         )
       ),
-      'returnExample' => array('type' => RestGeneric::RETURN_EXAMPLE_DYNAMIC)
+      'returnExample' => array(
+        'type' => RestGeneric::RETURN_EXAMPLE_STATIC,
+        'value' => '{"status":"ok","time":1356012312,"exectime":0.181,"response":{}}'
+      )
     ),
     'updatePattern' => array(
       'type' => array(RestGeneric::METHOD_GET, RestGeneric::METHOD_POST),
@@ -99,10 +119,19 @@ class Model extends RestGeneric{
           'description' => '',
           'exampleValue' => '{ "id_model":"1",
                                "id_pattern":"1",
-                               "pattern_name":"Homepage"
+                               "pattern_name":"Homepage updated",
+                               "pattern_description":"Pattern description updated",
+                               "pattern_detail":{
+                                "color" : "red"
+                               }
                              }'
         )
       ),
+      'returnExample' => array(
+        'type' => RestGeneric::RETURN_EXAMPLE_STATIC,
+        'value' => '{"status":"ok","time":1356012312,"exectime":0.181,"response":{}}'
+      )
+    ),
     'deletePattern' => array(
       'type' => array(RestGeneric::METHOD_GET, RestGeneric::METHOD_POST),
       'description' => '',
@@ -120,7 +149,10 @@ class Model extends RestGeneric{
           'exampleValue' => '1'
         ),
       ),
-      'returnExample' => array('type' => RestGeneric::RETURN_EXAMPLE_DYNAMIC)
+      'returnExample' => array(
+        'type' => RestGeneric::RETURN_EXAMPLE_STATIC,
+        'value' => '{"status":"ok","time":1356012312,"exectime":0.181,"response":{}}'
+      )
     ),
   );
   /**
@@ -189,8 +221,10 @@ class Model extends RestGeneric{
       if ($action == null) { return serviceHelper::returnMessage("missing");}
       $id_model = $action->id_model;
       $pattern_name = $action->pattern_name;
-      //$sql = "INSERT INTO pattern (model_name,model_description,model_image) VALUES ('{$model_name}','{$model_description}','{$model_image}');";
-      if (!serviceHelper::isExistIn("id_pattern","pattern",array(array("key"=>"pattern_name","value"=>$pattern_name)))) {
+      $pattern_description = $action->pattern_description;
+      $pattern_detail = is_object($action->pattern_detail) ? json_encode($action->pattern_detail) : $action->pattern_detail;
+      $sql = "INSERT INTO pattern (id_model,pattern_name,pattern_description,pattern_detail) VALUES ('{$id_model}','{$pattern_name}','{$pattern_description}','{$pattern_detail}');";
+      if (!serviceHelper::isExistIn("id_pattern","pattern",array(array("key"=>"pattern_name","value"=>$pattern_name),array("key"=>"id_model","value"=>$id_model)))) {
         serviceHelper::query($sql);
         return serviceHelper::returnMessage("success");
       }else{
@@ -208,13 +242,17 @@ class Model extends RestGeneric{
   }
 
   function updatePattern($request){
+          $action = json_decode($request['action']);
+          var_dump($action);
     if (serviceHelper::isValidRequest($request['action'])) {
       $action = json_decode($request['action']);
       if ($action == null) { return serviceHelper::returnMessage("missing");}
       $id_model = $action->id_model;
       $id_pattern = $action->id_pattern;
       $pattern_name = $action->pattern_name;
-      $sql = "UPDATE pattern SET pattern_name = '{$pattern_name}' WHERE id_model = '{$id_model}' AND id_pattern = '{$id_pattern}';";
+      $pattern_description = $action->pattern_description;
+      $pattern_detail = is_object($action->pattern_detail) ? json_encode($action->pattern_detail) : $action->pattern_detail;
+      $sql = "UPDATE pattern SET pattern_name = '{$pattern_name}', pattern_description ='$pattern_description', pattern_detail ='$pattern_detail' WHERE id_model = '{$id_model}' AND id_pattern = '{$id_pattern}';";
       if ($result = serviceHelper::isExistIn("id_pattern","pattern",array(array("key"=>"id_model","value"=>$id_model),array("key"=>"id_pattern","value"=>$id_pattern)))) {
         serviceHelper::query($sql);
         return serviceHelper::returnMessage("success");
