@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-angular
+var app = angular
   .module('easydesignApp', [
     'ngResource',
     'ngRoute'
@@ -39,3 +39,10 @@ angular
         redirectTo: '/'
       });
   });
+
+app.run(['$route','$rootScope','$location', function($route,$rootScope,$location){
+  $rootScope.id_user = null;
+  $rootScope.user_type = null;
+  $rootScope.id_session = null;
+  $rootScope.logged_in = false;
+}])

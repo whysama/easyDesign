@@ -8,7 +8,7 @@ angular.module('easydesignApp')
       $scope.doLogin = function(){
         LoginService.login($scope.login,$scope.password,function(loggedin,actionName,code){
           if (loggedin) {
-            $location.path('/dashboard');
+            //$location.path('/dashboard');
           }else if(!validator.isNull(code)){
             ErrorService.getErrorMessage(code,actionName);
           }
