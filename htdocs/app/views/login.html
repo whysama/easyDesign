@@ -1,20 +1,20 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-6 col-md-4 col-md-offset-4 jumbotron">
+    <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 jumbotron">
       <form class="form login-form">
         <legend>
-          Welcome to easyDesign
+          Welcome to EasyDesign
         </legend>
 
-        <div>
+        <div class="body login">
           <label>Username</label>
-          <input type="text">    
+          <input type="text" class="form-control chat-input" ng-model="login"/>
 
           <label>Password</label>
-          <input type="password">
+          <input type="password" class="form-control chat-input" ng-model="password"/>
         </div>
-        <div>
-          <button type="submit" class="btn btn-success btn-block">Login</button>
+        <div class="footer login">
+          <button type="submit" class="btn btn-success btn-block" ng-click="doLogin()">Login</button>
         </div>
       </form>
     </div>

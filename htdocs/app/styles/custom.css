@@ -1,4 +1,10 @@
-label {
-	display: block;
-	font-weight: normal;
+.login label {
+  display: block;
+  font-weight: normal;
+  font-size: medium;
 }
+
+.login button{
+  display: block;
+}
+
