@@ -15,7 +15,7 @@ angular.module('easydesignApp')
                 $rootScope.user_type = data.response.user_type;
                 $rootScope.id_session = data.response.sid;
                 $rootScope.logged_in = true;
-                return callback(ture,actionName);
+                return callback(true,actionName);
               }else{
                 return callback(false,actionName,data.response.code);
               }

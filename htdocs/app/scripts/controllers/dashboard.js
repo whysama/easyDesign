@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('easydesignApp')
-  .controller('LoginCtrl', ['$scope', '$location','LoginService', 'ErrorService',
+  .controller('DashboardCtrl', ['$scope', '$location', 'ErrorService',
     function($scope,$location,LoginService,ErrorService){
       $scope.login = '';
       $scope.password = '';
