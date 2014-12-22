@@ -27,6 +27,10 @@ var app = angular
         templateUrl: 'views/dashboard.html',
         controller: 'DashboardCtrl'
       })
+      .when('/model/:id_model', {
+        templateUrl: 'views/model.html',
+        controller: 'ModelCtrl'
+      })
       .when('/musee', {
         templateUrl: 'views/musee.html',
         controller: 'MuseeModelCtrl'

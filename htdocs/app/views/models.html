@@ -1,0 +1,9 @@
+<div class="thumbnail" ng-repeat="model in models">
+  <a href="#model/{{model.id_model}}" >
+    <img my-holder="holder.js/300x300/vine/text:{{model.model_name}}" alt="...">
+  </a>
+  <div class="caption">
+    <h3>Model {{model.model_name}}</h3>
+    <p>{{model.model_description}}</p>
+  </div>
+</div>

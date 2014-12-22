@@ -1,0 +1,11 @@
+<nav class="nav-sidebar" ng-switch on="current_user.user_type">
+    <!-- <ul class="nav" ng-switch-when="1"> -->
+    <ul class="nav" ng-switch-default>
+        <li><a href="javascript:;" ng-click="getModels()">Models</a></li>
+        <li><a href="#model/new">Create a new model</a></li>
+        <li><a href="javascript:;" ng-click="getProjects()">Projects</a></li>
+    </ul>
+    <ul class="nav" ng-switch-when="2">
+        <li><a href="javascript:;">Projects</a></li>
+    </ul>
+</nav>
