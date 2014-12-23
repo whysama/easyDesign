@@ -37,7 +37,7 @@ var app = angular
       })
       .when('/model/:id_model/pattern/:id_pattern', {
         templateUrl: 'views/pattern.html',
-        controller: 'ModelCtrl'
+        controller: 'PatternCtrl'
       })
       .when('/musee', {
         templateUrl: 'views/musee.html',

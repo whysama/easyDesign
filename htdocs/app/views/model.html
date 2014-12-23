@@ -1,5 +1,5 @@
-<div class="container">
-  <div class="row">
+<div class="container" ng-switch on="action">
+  <div class="row" ng-switch-when="list">
     <div ng-repeat="pattern in patterns" class="col-xs-6 col-md-3">
       <div class="thumbnail">
         <a href="#/model/{{pattern.id_model}}/pattern/{{pattern.id_pattern}}">
@@ -11,5 +11,8 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="row" ng-switch-when="new">
+    <p> good</p>
   </div>
 </div>
