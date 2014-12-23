@@ -79,9 +79,7 @@ class User extends RestGeneric{
     $login = $request['login'];
     $password = hashPassword($request['password']);
     if ($result = serviceHelper::isExistIn('*','user',array(array('key'=>'login','value'=>$login),array('key'=>'password','value'=>$password)))) {
-      //session_destroy();
-      session_name(session_name);
-      session_start();
+      sec_session_start();
       $_SESSION[session_name]['login'] = $login;
       $_SESSION[session_name]['sid'] = session_id();
       $_SESSION[session_name]['id_user'] = $result[0]['id_user'];

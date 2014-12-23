@@ -23,6 +23,25 @@ function hashPassword($password){
   return sha1(dencrypter_seed.$password.sha1(dencrypter_seed.$password));
 }
 
+function sec_session_start() {
+    session_destroy();      // Détruire la session récupérée
+    $secure = true;       // This stops JavaScript being able to access the session id.
+    $httponly = true;       
+    $cookieParams = session_get_cookie_params();
+    $lifetime = 24 * 3600;
+
+    session_set_cookie_params($cookieParams["lifetime"]+$lifetime,
+        $cookieParams["path"], 
+        $cookieParams["domain"], 
+        $secure,
+        $httponly);
+    // Sets the session name to the one set above.
+    session_name(session_name);
+    
+    session_start();            // Start the PHP session 
+    session_regenerate_id(true);    // regenerated the session, delete the old one. 
+}
+
 function ifnotdef($name, $value){
   if(!defined($name)){
     define($name, $value);

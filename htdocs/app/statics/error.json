@@ -2,5 +2,10 @@
   "login" : {
     "000" : "Login failed",
     "404" : "Failed"
+  },
+  "logout" : {
+    "000" : "Logout failed",
+    "111" : "Logout success",    
+    "404" : "Failed"
   }
 }

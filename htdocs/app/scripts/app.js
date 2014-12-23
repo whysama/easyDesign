@@ -11,8 +11,12 @@
 var app = angular
   .module('easydesignApp', [
     'ngResource',
-    'ngRoute'
+    'ngRoute',
+    'LocalStorageModule'
   ])
+  .config(['localStorageServiceProvider',function(localStorageServiceProvider) {
+    localStorageServiceProvider.setPrefix('easyls');
+  }])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -31,6 +35,10 @@ var app = angular
         templateUrl: 'views/model.html',
         controller: 'ModelCtrl'
       })
+      .when('/model/:id_model/pattern/:id_pattern', {
+        templateUrl: 'views/pattern.html',
+        controller: 'ModelCtrl'
+      })
       .when('/musee', {
         templateUrl: 'views/musee.html',
         controller: 'MuseeModelCtrl'
@@ -44,9 +52,22 @@ var app = angular
       });
   });
 
-app.run(['$route','$rootScope','$location', function($route,$rootScope,$location){
-  $rootScope.id_user = null;
-  $rootScope.user_type = null;
-  $rootScope.id_session = null;
-  $rootScope.logged_in = false;
+app.run(['$route','$rootScope','$location','$window','LoginService', function($route,$rootScope,$location,$window,LoginService){
+    $rootScope.current_user = (validator.isNull($window.sessionStorage["userInfo"]))? null : JSON.parse($window.sessionStorage["userInfo"]);
+    $rootScope.logged_in = (validator.isNull($rootScope.current_user))? false : true;
+    if (!$rootScope.logged_in) {
+      $location.path('/');
+    }
+
+    $rootScope.doLogout = function(){
+      LoginService.logout(function(loggedout,actionName,code){
+        if (loggedout) {
+          $location.path('/');
+        }else if(!validator.isNull(code)){
+          ErrorService.getErrorMessage(actionName,code);
+        }else{
+          ErrorService.getErrorMessage(actionName);
+        }
+      });
+    }
 }])

@@ -8,10 +8,11 @@
  * Controller of the easydesignApp
  */
 angular.module('easydesignApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+  .controller('MainCtrl', ['$scope','$rootScope' ,'$location','LoginService', 'ErrorService',
+    function($scope,$rootScope,$location,LoginService,ErrorService){
+      if ($rootScope.logged_in) {
+        $location.path('/dashboard');
+      }else{
+        $rootScope.doLogout();
+      }
+    }]);
