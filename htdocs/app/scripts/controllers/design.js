@@ -23,8 +23,10 @@ angular.module('easydesignApp')
       }
     }]);
 
-  angular.module('easydesignApp')
-  .controller('PatternCtrl', ['$rootScope','$scope', '$location', '$http', '$routeParams', 'ErrorService',
-    function($rootScope,$scope,$location,$http,$routeParams,ErrorService){
-
+angular.module('easydesignApp')
+  .controller('PatternCtrl', ['$rootScope','$scope', '$location', '$http', '$routeParams', 'ErrorService', 'ComponentService',
+    function($rootScope,$scope,$location,$http,$routeParams,ErrorService,ComponentService){
+      ComponentService.getAllComponents(function(data){
+        console.log(data);
+      });
     }]);

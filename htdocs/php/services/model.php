@@ -154,6 +154,22 @@ class Model extends RestGeneric{
         'value' => '{"status":"ok","time":1356012312,"exectime":0.181,"response":{}}'
       )
     ),
+    'getAllComponents' => array(
+      'type' => array(RestGeneric::METHOD_GET, RestGeneric::METHOD_POST),
+      'description' => '',
+      'params' => array(
+        'id_model' => array(
+          'required' => false,
+          'type' => RestGeneric::PARAM_TYPE_INT,
+          'description' => '',
+          'exampleValue' => '1'
+        ),
+      ),
+      'returnExample' => array(
+        'type' => RestGeneric::RETURN_EXAMPLE_STATIC,
+        'value' => '{"status":"ok","time":1356012312,"exectime":0.181,"response":{}}'
+      )
+    ),
   );
   /**
    * [Model description:user as airweb can CRUD a model]
@@ -271,5 +287,17 @@ class Model extends RestGeneric{
     $sql = "DELETE FROM pattern WHERE id_pattern = '{$id_pattern}' AND id_model = '{$id_model}';";
     serviceHelper::query($sql);
     return serviceHelper::returnMessage("success");
+  }
+
+  function getAllComponents($request){
+    //foreach (glob("../app/statics/components/*.json") as $filename) {
+    $count = 0;
+    foreach (glob("../app/statics/components/general_*.json") as $file) {
+      $count++;
+      $name = array_shift(explode(".",array_pop(explode("/general_", $file))));
+      $components[$name] = file_get_contents($file);
+    }
+    $components["nb"] =$count;
+    return $components;
   }
 }
